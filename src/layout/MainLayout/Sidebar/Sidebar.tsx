@@ -1,5 +1,5 @@
 import { Fragment, useEffect } from "react";
-import { Box, Divider, Drawer, List, Toolbar } from "@mui/material";
+import { Box, Divider, Drawer, List } from "@mui/material";
 import { useLayoutContext } from "@/contexts/LayoutContext";
 import useIsMobile from "@/hooks/useIsMobile";
 import navigation from "@/router/navigation";
@@ -49,7 +49,7 @@ const Sidebar = () => {
                 </Box>
 
                 {/* Toolbar to add space below the logo */}
-                <Toolbar />
+               
 
                 {/* Navigation links */}
                 {navigation.map((section) => (
