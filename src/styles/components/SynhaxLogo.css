@@ -1,0 +1,43 @@
+.path-dark-found-two {
+    fill: url(#linear-gradient);
+  }
+  
+  .path-dark-found {
+    fill: url(#linear-gradient-2);
+  }
+  
+  .path-design {
+    fill: url(#linear-gradient-3);
+  }
+  
+  .path-found-two {
+    fill: url(#linear-gradient-4);
+  }
+  
+  .path-found {
+    fill: url(#linear-gradient-5);
+  }
+  
+  .synhax-text {
+    font-family: "DAGGERSQUARE", sans-serif;
+    font-size: 25.39px;
+    letter-spacing: -0.02em;
+    transform: translate(35.1px, 21.26px);
+    fill: currentColor; /* Allows dynamic color adjustment */
+  }
+  
+  .synhax-text-dark {
+    color: #fff;
+  }
+  
+  .synhax-text-light {
+    color: #000;
+  }
+  
+  .logo {
+    height: 40px; /* Match app bar height */
+    width: auto;  /* Maintain aspect ratio */
+    display: block; /* Ensure proper display */
+    margin: auto 0; /* Center vertically */
+  }
+  
