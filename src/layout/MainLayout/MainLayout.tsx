@@ -34,7 +34,7 @@ export default function MainLayout() {
                 <Box
                     component="main"
                     sx={{
-                        p: 3,
+                        p: 0,
                     }}
                 >
                     <Toolbar />
