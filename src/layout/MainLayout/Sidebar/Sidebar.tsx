@@ -42,7 +42,7 @@ const Sidebar = () => {
                         display: "flex",
                         alignItems: "center",
                         justifyContent: "center",
-                        p: 2,
+                        p: 1.5,
                     }}
                 >
                     <SynhaxLogo />

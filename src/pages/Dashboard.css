@@ -37,3 +37,20 @@
     display: grid;
     gap: 10px; /* Adds space between grid items */
 }
+
+.drag-handle {
+    cursor: move;
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    text-align: center;
+    border-bottom: 1px solid #444;
+}
+
+.editor-title {
+    background-color: #333;
+    color: #fff;
+    padding: 8px;
+    text-align: left;
+    font-weight: bold;
+}

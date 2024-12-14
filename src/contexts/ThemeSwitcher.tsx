@@ -23,7 +23,7 @@ function ThemeSwitcher() {
           aria-label={`Switch to ${paletteMode === 'dark' ? 'light' : 'dark'} mode`}
           onClick={toggleMode}
           style={{
-            color: paletteMode === "light" ? "white" : "white", // Adjust to contrast with your background
+            color: paletteMode === "light" ? "black" : "white", // Adjust to contrast with your background
             opacity: 1, // Ensure full opacity
           }}
         >

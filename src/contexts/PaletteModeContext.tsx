@@ -8,8 +8,11 @@ interface PaletteModeContextValue {
 
 const PaletteModeContext = React.createContext<PaletteModeContextValue>({
   paletteMode: 'light',
-  setPaletteMode: () => {},
+  setPaletteMode: (mode: 'light' | 'dark') => {
+    console.warn(`setPaletteMode called with mode: ${mode}`);
+  },
   isDualTheme: true,
 });
+
 
 export { PaletteModeContext };
