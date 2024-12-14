@@ -1,6 +1,6 @@
 import { Fragment, useEffect } from "react";
 import { Box, Divider, Drawer, List } from "@mui/material";
-import { useLayoutContext } from "@/contexts/LayoutContext";
+import { useLayoutContext } from "@/contexts/useLayoutContext";
 import useIsMobile from "@/hooks/useIsMobile";
 import navigation from "@/router/navigation";
 import { SIDEBAR_WIDTH } from "../constants";

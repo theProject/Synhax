@@ -3,7 +3,7 @@ import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { AppBar, IconButton, Toolbar, Typography, Box } from "@mui/material";
 import { useState } from "react";
-import { useLayoutContext } from "@/contexts/LayoutContext";
+import { useLayoutContext } from "@/contexts/useLayoutContext"; // Correct import
 import useIsMobile from "@/hooks/useIsMobile";
 import { SIDEBAR_WIDTH } from "../constants";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
@@ -16,7 +16,7 @@ const Header = ({ generateOutput }: { generateOutput: () => void }) => {
     const [toolbarText, setToolbarText] = useState("Home");
 
     const handleDrawerToggle = () => {
-        setSidebarOpen((current) => !current);
+        setSidebarOpen((current: boolean) => !current); // Explicitly type `current`
     };
 
     const toggleToolbar = () => {
@@ -49,20 +49,18 @@ const Header = ({ generateOutput }: { generateOutput: () => void }) => {
 
                 {/* Breadcrumbs */}
                 <Box sx={{ color: "text.primary" }}>
-    <Breadcrumbs separator="›" aria-label="breadcrumb">
-        <Typography variant="body1" color="inherit">
-            Home
-        </Typography>
-        <Typography variant="body1" color="inherit">
-            Dashboard
-        </Typography>
-        <Typography variant="body1" color="inherit">
-            Current
-        </Typography>
-    </Breadcrumbs>
-</Box>
-
-
+                    <Breadcrumbs separator="›" aria-label="breadcrumb">
+                        <Typography variant="body1" color="inherit">
+                            Home
+                        </Typography>
+                        <Typography variant="body1" color="inherit">
+                            Dashboard
+                        </Typography>
+                        <Typography variant="body1" color="inherit">
+                            Current
+                        </Typography>
+                    </Breadcrumbs>
+                </Box>
 
                 {/* Title */}
                 <Typography
