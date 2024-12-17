@@ -3,8 +3,23 @@ import DnsIcon from "@mui/icons-material/Dns";
 import InfoIcon from "@mui/icons-material/Info";
 import PeopleIcon from "@mui/icons-material/People";
 import SettingsIcon from "@mui/icons-material/Settings";
+import { DeblurSharp, FolderZipSharp, DataSaverOnSharp } from "@mui/icons-material";
 
-const navigation = [
+// Define the type structure for the navigation
+interface NavigationLink {
+    path?: string;
+    title: string;
+    icon: JSX.Element;
+    children?: NavigationLink[];
+}
+
+interface NavigationSection {
+    title: string;
+    links: NavigationLink[];
+}
+
+// Navigation structure
+const navigation: NavigationSection[] = [
     {
         title: "Main",
         links: [
@@ -27,6 +42,22 @@ const navigation = [
                         path: "/settings/system",
                         title: "System",
                         icon: <DnsIcon />,
+                    },
+                ],
+            },
+            {
+                title: "Project Synhax",
+                icon: <DeblurSharp />,
+                children: [
+                    {
+                        title: "New Synhax",
+                        path: "/projects/project1",
+                        icon: <DataSaverOnSharp />,
+                    },
+                    {
+                        title: "Open Synhax",
+                        path: "/projects/project2",
+                        icon: <FolderZipSharp />,
                     },
                 ],
             },

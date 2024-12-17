@@ -1,26 +1,34 @@
+import { useState } from "react";
 import MenuIcon from "@mui/icons-material/Menu";
 import SwapHorizIcon from "@mui/icons-material/SwapHoriz";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
-import { AppBar, IconButton, Toolbar, Typography, Box } from "@mui/material";
-import { useState } from "react";
-import { useLayoutContext } from "@/contexts/useLayoutContext"; // Correct import
+import ViewQuiltIcon from "@mui/icons-material/ViewQuilt"; // Layout icon
+import { AppBar, IconButton, Toolbar, Typography, Box, Menu, MenuItem } from "@mui/material";
+import { useLayoutContext } from "@/contexts/useLayoutContext";
 import useIsMobile from "@/hooks/useIsMobile";
 import { SIDEBAR_WIDTH } from "../constants";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import { ThemeSwitcher } from "@/contexts/ThemeSwitcher";
-import "./Header.css";
 
-const Header = ({ generateOutput }: { generateOutput: () => void }) => {
+const Header = ({ generateOutput, onChangeLayout }: { generateOutput: () => void; onChangeLayout: (layout: string) => void }) => {
     const { sidebarOpen, setSidebarOpen } = useLayoutContext();
     const isMobile = useIsMobile();
-    const [toolbarText, setToolbarText] = useState("Home");
+    const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
     const handleDrawerToggle = () => {
-        setSidebarOpen((current: boolean) => !current); // Explicitly type `current`
+        setSidebarOpen((current: boolean) => !current);
     };
 
-    const toggleToolbar = () => {
-        setToolbarText((prev) => (prev === "Home" ? "Synhax Panel" : "Home"));
+    const handleMenuOpen = (event: React.MouseEvent<HTMLButtonElement>) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleMenuClose = () => {
+        setAnchorEl(null);
+    };
+
+    const handleLayoutChange = (layout: string) => {
+        onChangeLayout(layout);
+        setAnchorEl(null);
     };
 
     return (
@@ -28,15 +36,12 @@ const Header = ({ generateOutput }: { generateOutput: () => void }) => {
             elevation={0}
             position="fixed"
             sx={{
-                width: `calc(100% - ${
-                    sidebarOpen && !isMobile ? SIDEBAR_WIDTH : 0
-                }px)`,
+                width: `calc(100% - ${sidebarOpen && !isMobile ? SIDEBAR_WIDTH : 0}px)`,
                 backgroundColor: "background.default",
                 color: "text.primary",
             }}
         >
             <Toolbar>
-                {/* Sidebar Hamburger Icon */}
                 <IconButton
                     color="inherit"
                     aria-label="toggle drawer"
@@ -47,50 +52,34 @@ const Header = ({ generateOutput }: { generateOutput: () => void }) => {
                     <MenuIcon />
                 </IconButton>
 
-                {/* Breadcrumbs */}
-                <Box sx={{ color: "text.primary" }}>
-                    <Breadcrumbs separator="›" aria-label="breadcrumb">
-                        <Typography variant="body1" color="inherit">
-                            Home
-                        </Typography>
-                        <Typography variant="body1" color="inherit">
-                            Dashboard
-                        </Typography>
-                        <Typography variant="body1" color="inherit">
-                            Current
-                        </Typography>
-                    </Breadcrumbs>
-                </Box>
+                <Breadcrumbs sx={{ color: "text.primary", flexGrow: 1 }}>
+                    <Typography variant="body1" color="inherit">
+                        Home
+                    </Typography>
+                    <Typography variant="body1" color="inherit">
+                        Dashboard
+                    </Typography>
+                    <Typography variant="body1" color="inherit">
+                        Current
+                    </Typography>
+                </Breadcrumbs>
 
-                {/* Title */}
-                <Typography
-                    variant="h6"
-                    sx={{
-                        flexGrow: 1,
-                        textAlign: "center",
-                    }}
-                >
-                    {toolbarText}
-                </Typography>
-
-                {/* Dynamic Icons */}
                 <Box sx={{ display: "flex", alignItems: "center" }}>
-                    <IconButton
-                        color="inherit"
-                        aria-label="run app"
-                        onClick={generateOutput}
-                    >
-                        <PlayArrowIcon />
-                    </IconButton>
-                    <ThemeSwitcher />
-                    <IconButton
-                        color="inherit"
-                        aria-label="swap toolbar mode"
-                        edge="end"
-                        onClick={toggleToolbar}
-                    >
+                    <IconButton color="inherit" onClick={generateOutput}>
                         <SwapHorizIcon />
                     </IconButton>
+
+                    {/* Layout Change Icon */}
+                    <IconButton color="inherit" onClick={handleMenuOpen}>
+                        <ViewQuiltIcon />
+                    </IconButton>
+                    <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleMenuClose}>
+                        <MenuItem onClick={() => handleLayoutChange("default")}>Editors Top, Output Bottom</MenuItem>
+                        <MenuItem onClick={() => handleLayoutChange("left")}>Editors Left, Output Right</MenuItem>
+                        <MenuItem onClick={() => handleLayoutChange("right")}>Editors Right, Output Left</MenuItem>
+                    </Menu>
+
+                    <ThemeSwitcher />
                 </Box>
             </Toolbar>
         </AppBar>

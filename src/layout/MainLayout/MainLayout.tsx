@@ -16,6 +16,11 @@ export default function MainLayout() {
         console.log("Output generated!"); // Replace this with your actual logic
     };
 
+    // Handle layout change (remove layout state)
+    const handleLayoutChange = (newLayout: string) => {
+        console.log(`Layout changed to: ${newLayout}`); // Placeholder for layout handling
+    };
+
     return (
         <>
             <Sidebar />
@@ -34,8 +39,8 @@ export default function MainLayout() {
                         }),
                 }}
             >
-                {/* Pass the generateOutput prop to Header */}
-                <Header generateOutput={generateOutput} />
+                {/* Pass both required props to Header */}
+                <Header generateOutput={generateOutput} onChangeLayout={handleLayoutChange} />
                 <Box
                     component="main"
                     sx={{
