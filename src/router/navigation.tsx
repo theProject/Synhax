@@ -51,7 +51,7 @@ const navigation: NavigationSection[] = [
                 children: [
                     {
                         title: "New Synhax",
-                        path: "/projects/project1",
+                        path: "/editor", // Updated path to launch the Monaco editor
                         icon: <DataSaverOnSharp />,
                     },
                     {

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import { Box, styled } from '@mui/material';
+import { Box, styled, Tooltip } from '@mui/material';
 import { CloseFullscreen } from '@mui/icons-material';
 import Monaco from './Monaco';
 
 interface EditorBoxProps {
-  lang: 'html' | 'css' | 'javascript'; // Language-specific types for Monaco
-  boxName: 'HTML' | 'CSS' | 'JS';     // Restricted values for boxName
-  logo: React.ReactNode;              // Logo as a React node
+  lang: 'html' | 'css' | 'javascript';
+  boxName: 'HTML' | 'CSS' | 'JS';
+  logo: React.ReactNode;
 }
 
 const Heading = styled(Box)`
@@ -34,6 +34,7 @@ const EditorBoxDiv = styled(Box)`
   border-top-color: transparent;
   border-bottom-color: transparent;
   flex-grow: 1;
+  transition: all 0.3s ease; /* Smooth resizing */
   &:focus-within {
     border: 1px solid rgba(255, 255, 255, 0.9);
   }
@@ -43,25 +44,39 @@ const EditorBox: React.FC<EditorBoxProps> = ({ lang, boxName, logo }) => {
   const [flexEnlarge, setFlexEnlarge] = useState(true);
 
   return (
-    <EditorBoxDiv style={flexEnlarge ? undefined : { flexGrow: 0 }}>
+    <EditorBoxDiv
+      style={{
+        flexGrow: flexEnlarge ? 1 : 0,
+        width: flexEnlarge ? "auto%" : "40px", // Control width for horizontal collapsing
+        height: "100%", // Ensure height is fixed - could control height collapsinmg if needed too
+        transition: "all 0.3s ease", // Smooth transition
+      }}
+    >
       <Header>
         <Heading>
-          <Box
-            component="span"
-            style={{
-              display: 'flex',
-            }}
-          >
+          <Box component="span" style={{ display: 'flex' }}>
             {logo}
           </Box>
           {boxName}
         </Heading>
-        <CloseFullscreen
-          style={{ cursor: 'pointer', padding: '5px' }}
-          onClick={() => setFlexEnlarge(!flexEnlarge)}
-        />
+        <Tooltip title={flexEnlarge ? "Collapse" : "Expand"} arrow>
+          <CloseFullscreen
+            style={{ cursor: 'pointer', padding: '5px' }}
+            onClick={() => setFlexEnlarge(!flexEnlarge)}
+            titleAccess={flexEnlarge ? "Collapse" : "Expand"} // Accessibility title
+          />
+        </Tooltip>
       </Header>
-      <Monaco lang={lang} boxName={boxName} />
+      <Monaco
+  lang={lang}
+  boxName={boxName}
+  style={{
+    width: flexEnlarge ? '100%' : '10px', // Dynamic width control
+    height: "500px", // Ensure it matches the parent height
+    overflow: flexEnlarge ? 'visible' : 'hidden',  
+  }}
+/>
+
     </EditorBoxDiv>
   );
 };

@@ -1,14 +1,27 @@
 import Editor, { OnChange } from '@monaco-editor/react';
 import React, { useContext, useEffect, useState } from 'react';
 import { DataContext } from '../contexts/DataContext';
+import { styled } from '@mui/material';
 
 interface MonacoProps {
   boxName: 'HTML' | 'CSS' | 'JS';
   lang: string;
+  style?: React.CSSProperties; // Add optional style prop
 }
 
-const Monaco: React.FC<MonacoProps> = ({ boxName, lang }) => {
-  const { HTMLval, CSSval, JSval, setHTMLval, setCSSval, setJSval } = useContext(DataContext)!;
+// Styled container for the Monaco Editor
+const MonacoContainer = styled('div')<{
+  customStyle?: React.CSSProperties;
+}>(({ customStyle }) => ({
+  width: '100%',
+  height: '100%',
+  overflow: 'hidden', // Default styles
+  ...customStyle, // Merge parent-passed styles
+}));
+
+const Monaco: React.FC<MonacoProps> = ({ boxName, lang, style }) => {
+  const { HTMLval, CSSval, JSval, setHTMLval, setCSSval, setJSval } =
+    useContext(DataContext)!;
 
   const [localValue, setLocalValue] = useState<string>(() => {
     const saved = localStorage.getItem(boxName);
@@ -71,13 +84,15 @@ const Monaco: React.FC<MonacoProps> = ({ boxName, lang }) => {
   }, [HTMLval, CSSval, JSval, boxName]);
 
   return (
-    <Editor
-      theme="vs-dark"
-      height="85%"
-      defaultValue={localValue}
-      defaultLanguage={lang}
-      onChange={handleEditorChange}
-    />
+    <MonacoContainer customStyle={style}>
+      <Editor
+        theme="vs-dark"
+        height="100%"
+        defaultLanguage={lang}
+        defaultValue={localValue}
+        onChange={handleEditorChange}
+      />
+    </MonacoContainer>
   );
 };
 
