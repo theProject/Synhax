@@ -48,9 +48,6 @@ const Sidebar = () => {
                     <SynhaxLogo />
                 </Box>
 
-                {/* Toolbar to add space below the logo */}
-               
-
                 {/* Navigation links */}
                 {navigation.map((section) => (
                     <Fragment key={section.title}>
@@ -64,24 +61,26 @@ const Sidebar = () => {
                                         icon={link.icon}
                                     >
                                         <List>
-                                            {link.children.map((nestedLink) => (
-                                                <SidebarLink
-                                                    key={nestedLink.path}
-                                                    to={nestedLink.path}
-                                                    text={nestedLink.title}
-                                                    icon={nestedLink.icon}
-                                                />
-                                            ))}
+                                            {link.children.map((nestedLink) =>
+                                                nestedLink.path ? (
+                                                    <SidebarLink
+                                                        key={nestedLink.path}
+                                                        to={nestedLink.path || "#"} // Default to "#" if undefined
+                                                        text={nestedLink.title}
+                                                        icon={nestedLink.icon}
+                                                    />
+                                                ) : null
+                                            )}
                                         </List>
                                     </SidebarSubmenu>
-                                ) : (
+                                ) : link.path ? (
                                     <SidebarLink
                                         key={link.path}
-                                        to={link.path}
+                                        to={link.path || "#"} // Default to "#" if undefined
                                         text={link.title}
                                         icon={link.icon}
                                     />
-                                ),
+                                ) : null
                             )}
                         </List>
                     </Fragment>

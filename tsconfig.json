@@ -21,6 +21,9 @@
         "noUnusedParameters": true,
         "noFallthroughCasesInSwitch": true,
 
+        /* Force consistent casing */
+        "forceConsistentCasingInFileNames": true,
+
         "paths": {
             "@/*": ["./src/*"]
         }
